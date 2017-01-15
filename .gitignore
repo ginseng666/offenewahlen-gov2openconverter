@@ -1,0 +1,11 @@
+venv
+*.pyc
+includes
+.project
+*.pyo
+*~
+*.db
+notes.md
+staticfiles
+.env
+data/output/
