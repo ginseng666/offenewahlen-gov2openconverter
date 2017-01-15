@@ -10,8 +10,8 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 - ```eligible```: Zahl der Wahlbereichtigten als Integer
 - ```invalid```: ungültige Stimmen als Integer
 - ```valid```: gültige Stimmen als Integer
-- ```<parties>```: danach folgen spalte für spalte die Stimmen für die jeweiligen Parteien als Integer. Also wenn bei einer Wahl die drei Parteien SPÖ, ÖVP und FPÖ beteiligt waren, dann folgt eine Spalte mit ```spoe```, eine mit ```oevp``` und eine mit ```fpoe```. Die Reihenfolge ist dabei egal, es muss aber in der Headerzeile der Datei die korrekte Bezeichnung für die Partei verwendet werden. 
-	- **Korrekte Partei-Bezeichnungen**
+- ```<party>```: danach folgen Spalte für Spalte die Stimmen für die jeweiligen Parteien als Integer. Als konkretes Beispiel: Wenn bei einer Wahl die folgenden drei Parteien SPÖ, ÖVP und FPÖ zur Wahl standen, dann folgt eine Spalte mit ```spoe```, eine mit ```oevp``` und eine mit ```fpoe```. Hier ist ebenfalls die Reihenfolge egal, aber ebenfalls die korrekte Bezeichnung in der Headerzeile der Datei wichtig. 
+	**Korrekte Partei-Bezeichnungen**
 	- ```bzoe```
 	- ```fpoe```
 	- ```gruene```
