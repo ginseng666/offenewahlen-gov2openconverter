@@ -20,3 +20,13 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 	- ```oevp```
 	- ```spoe```
 
+**Beispiel**
+
+| spatial_id     | eligible       | invalid | valid | spoe | oevp | fpoe |
+|---------------|--------------|  |  |  |  |  |
+| 101 | 345 | 4 | 341 | 181 | 152 | 12 |
+| 102 | 412 | 5 | 407 | 31 | 188 | 188 |
+| ... | ... | ... | ... | ... | ... | ... |
+
+Unter [data/output/](data/output/) sind die konvertierten CSV-Dateien gespeichert.
+
