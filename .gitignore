@@ -8,7 +8,6 @@ includes
 notes.md
 staticfiles
 .env
-data/output/
 *.sublime-project
 *.sublime-workspace
 setup.py
