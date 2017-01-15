@@ -3,7 +3,6 @@ from datetime import datetime
 import pandas as pd
 import json
 import csv
-from config import *
 
 __author__ = "Stefan Kasberger"
 __copyright__ = "Copyright 2017"
@@ -12,6 +11,14 @@ __version__ = "0.1"
 __maintainer__ = "Stefan Kasberger"
 __email__ = "mail@stefankasberger.at"
 __status__ = "Production" # 'Development', 'Production' or 'Prototype'
+
+
+###    GLOBALS   ###
+
+basedir = os.path.abspath(os.path.dirname(__file__))
+
+INPUT_FOLDER = basedir+'/data/input/'
+OUTPUT_FOLDER = basedir+'/data/output/'
 
 
 ###    FUNCTIONS   ###
