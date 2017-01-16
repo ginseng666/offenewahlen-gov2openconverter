@@ -78,13 +78,13 @@ def convert_grwgraz12():
 	        data[sprengel] = {}
 	        data[sprengel]['spatial_id'] = sprengel
 	    data[sprengel][row['ptname']] = row['stimmen']
-	    data[sprengel]['eligible'] = row['gesamt']
+	    data[sprengel]['votes'] = row['gesamt']
 	    data[sprengel]['invalid'] = row['unguel']
 	    data[sprengel]['valid'] = row['gueltig']
 
 	df = pd.DataFrame(data).T
 
-	cols_write = ['spatial_id', 'eligible', 'invalid', 'valid']
+	cols_write = ['spatial_id', 'votes', 'invalid', 'valid']
 	cols_write.extend(party_names)
 	write_csv(df, OUTPUT_FOLDER+GRW_GRAZ_2012_1_FILE, cols_write)
 	
