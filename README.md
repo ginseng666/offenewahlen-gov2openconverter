@@ -7,7 +7,7 @@ Konvertiert die Wahldaten von öffentlicher Stelle in eine einheitlich strukturi
 ## Data Output
 Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CSV-Datei muss ein ```;``` (Semikolon) als Trennzeichen haben, in UTF-8 encodiert sein und folgende Spalten haben. Wichtig ist dabei, dass die Spaltenbezeichnung in der ersten Header-Zeile der CSV Datei genau passt.
 - ```spatial_id```: die räumliche Kennzahl Sprengelkennzahl, Gemeindekennzahl, Bezirkskennzahl als Integer - je nach dem was verwendet wird.
-- ```eligible```: Zahl der Wahlbereichtigten als Integer
+- ```votes```: Zahl der abgegebenen Stimmen
 - ```invalid```: ungültige Stimmen als Integer
 - ```valid```: gültige Stimmen als Integer
 - ```<party>```: danach folgen Spalte für Spalte die Stimmen für die jeweiligen Parteien als Integer. Als konkretes Beispiel: Wenn bei einer Wahl die folgenden drei Parteien SPÖ, ÖVP und FPÖ zur Wahl standen, dann folgt eine Spalte mit ```spoe```, eine mit ```oevp``` und eine mit ```fpoe```. Hier ist ebenfalls die Reihenfolge egal, aber ebenfalls die korrekte Bezeichnung in der Headerzeile der Datei wichtig. 
@@ -22,7 +22,7 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 
 **Beispiel**
 
-| spatial_id     | eligible       | invalid | valid | spoe | oevp | fpoe |
+| spatial_id     | votes       | invalid | valid | spoe | oevp | fpoe |
 |---------------|--------------|--------------|--------------|--------------|--------------|--------------|
 | 101 | 345 | 4 | 341 | 181 | 152 | 12 |
 | 102 | 412 | 5 | 407 | 31 | 188 | 188 |
