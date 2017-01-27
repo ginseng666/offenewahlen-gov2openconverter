@@ -4,7 +4,7 @@ Konvertiert die Wahldaten von öffentlicher Stelle in eine einheitlich strukturi
 ## Daten
 - Gemeinderatswahl Graz 2012 (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
 - [EU Wahl 2014](https://www.data.gv.at/katalog/dataset/2b10a91b-51d5-4e34-b992-8fd3a3121f0d) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
-- [Nationalratswahl 2013](https://www.data.gv.at/katalog/dataset/2b10a91b-51d5-4e34-b992-8fd3a3121f0d) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
+- [Nationalratswahl 2013](https://www.data.gv.at/katalog/dataset/09716341-2bea-4298-9525-e936d8247d19) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
 
 ## Data Output
 Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CSV-Datei muss ein ```;``` (Semikolon) als Trennzeichen haben, keine Quote-Chars, in UTF-8 encodiert sein und folgende Spalten haben. Wichtig ist dabei, dass die Spaltenbezeichnung in der ersten Header-Zeile der CSV Datei genau passt, die Reihenfolge der Spalten ist dabei aber egal.
