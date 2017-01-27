@@ -3,6 +3,8 @@ Konvertiert die Wahldaten von öffentlicher Stelle in eine einheitlich strukturi
 
 ## Daten
 - Gemeinderatswahl Graz 2012 (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
+- [EU Wahl 2014](https://www.data.gv.at/katalog/dataset/2b10a91b-51d5-4e34-b992-8fd3a3121f0d) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
+- [Nationalratswahl 2013](https://www.data.gv.at/katalog/dataset/2b10a91b-51d5-4e34-b992-8fd3a3121f0d) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
 
 ## Data Output
 Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CSV-Datei muss ein ```;``` (Semikolon) als Trennzeichen haben, keine Quote-Chars, in UTF-8 encodiert sein und folgende Spalten haben. Wichtig ist dabei, dass die Spaltenbezeichnung in der ersten Header-Zeile der CSV Datei genau passt, die Reihenfolge der Spalten ist dabei aber egal.
@@ -12,13 +14,23 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 - ```valid```: gültige Stimmen als Integer
 - ```<party>```: danach folgen Spalte für Spalte die Stimmen für die jeweiligen Parteien als Integer. Als konkretes Beispiel: Wenn bei einer Wahl die folgenden drei Parteien SPÖ, ÖVP und FPÖ zur Wahl standen, dann folgt eine Spalte mit ```spoe```, eine mit ```oevp``` und eine mit ```fpoe```. Hier ist ebenfalls die Reihenfolge egal, aber ebenfalls die korrekte Bezeichnung in der Headerzeile der Datei wichtig. 
 	- **Korrekte Partei-Bezeichnungen**
-	- ```bzoe```
-	- ```fpoe```
-	- ```gruene```
-	- ```kpoe```
-	- ```neos```
-	- ```oevp```
-	- ```spoe```
+	- ```bbb```: Betty Baloo Bande
+	- ```bzoe``` BZÖ
+	- ```cpg```
+	- ```cpoe```
+	- ```ekw```
+	- ```eustop```
+	- ```fpoe``` FPÖ
+	- ```gruene``` Grüne
+	- ```kpoe``` KPÖ
+	- ```m```
+	- ```neos``` Neos
+	- ```oevp``` ÖVP
+	- ```spoe``` SPÖ
+	- ```stronach``` Team Stronach
+	- ```slp```
+	- ```wandl```
+	- ```wir```
 
 **Beispiel**
 
