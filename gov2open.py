@@ -61,6 +61,12 @@ def convert_data(filename, file_type, cols_in, cols_out, sep, encoding):
 	df = open_spreadsheet(INPUT_FOLDER+'results/'+filename+'.'+file_type, file_type, sep, encoding)
 	
 	# reshape data
+	if filename == 'grw_graz_2003_1':
+		df, cols_in = reshape_grw_graz_2003_1(df, cols_in)
+
+	if filename == 'grw_graz_2008_1':
+		df, cols_in = reshape_grw_graz_2008_1(df, cols_in)
+
 	if filename == 'grw_graz_2012_1':
 		df, cols_in = reshape_grw_graz_2012_1(df, cols_in)
 
@@ -80,6 +86,47 @@ def convert_data(filename, file_type, cols_in, cols_out, sep, encoding):
 	# write columns
 	write_csv(df, OUTPUT_FOLDER+'results/'+filename+'.'+file_type, cols_out, sep, encoding)
 
+
+def reshape_grw_graz_2003_1(df, cols_in):
+	data = {}
+	party_names = list(df['ptname'].unique())
+	
+	for i, row in df.iterrows():
+	    sprengel = row['sprengel']
+	    if sprengel not in data.keys():
+	        data[sprengel] = {}
+	        data[sprengel]['sprengel'] = sprengel
+	    data[sprengel][row['ptname']] = row['stimmen']
+	    data[sprengel]['gesamt'] = row['gesamt']
+	    data[sprengel]['unguel'] = row['unguel']
+	    data[sprengel]['gueltig'] = row['gueltig']
+
+	df = pd.DataFrame(data).T
+	if 'stimmen' in cols_in: cols_in.remove('stimmen')
+	if 'ptname' in cols_in: cols_in.remove('ptname')
+
+	return df, cols_in
+
+def reshape_grw_graz_2008_1(df, cols_in):
+	data = {}
+	df.ix[df['ptname'].isnull(), 'ptname'] = 'weg'
+	party_names = list(df['ptname'].unique())
+	
+	for i, row in df.iterrows():
+	    sprengel = row['sprengel']
+	    if sprengel not in data.keys():
+	        data[sprengel] = {}
+	        data[sprengel]['sprengel'] = sprengel
+	    data[sprengel][row['ptname']] = row['stimmen']
+	    data[sprengel]['gesamt'] = row['gesamt']
+	    data[sprengel]['unguel'] = row['unguel']
+	    data[sprengel]['gueltig'] = row['gueltig']
+
+	df = pd.DataFrame(data).T
+	if 'stimmen' in cols_in: cols_in.remove('stimmen')
+	if 'ptname' in cols_in: cols_in.remove('ptname')
+
+	return df, cols_in
 
 def reshape_grw_graz_2012_1(df, cols_in):
 	data = {}

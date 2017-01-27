@@ -2,7 +2,9 @@
 Konvertiert die Wahldaten von öffentlicher Stelle in eine einheitlich strukturierte CSV Datei.
 
 ## Daten
-- Gemeinderatswahl Graz 2012 (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
+- [Gemeinderatswahl Graz 2003](http://data.graz.gv.at/daten/package/wahlergebnis-der-gemeinderatswahl-2008-in-der-stadt-graz) (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
+- [Gemeinderatswahl Graz 2008](http://data.graz.gv.at/daten/package/wahlergebnis-der-gemeinderatswahl-2008-in-der-stadt-graz) (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
+- Gemeinderatswahl Graz 2012() (Datenquelle: Stadt Graz - [data.graz.gv.at](http://data.graz.gv.at/) - CC BY 3.0 AT)
 - [EU Wahl 2014](https://www.data.gv.at/katalog/dataset/2b10a91b-51d5-4e34-b992-8fd3a3121f0d) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
 - [Nationalratswahl 2013](https://www.data.gv.at/katalog/dataset/09716341-2bea-4298-9525-e936d8247d19) (Datenquelle: BMI - data.gv.at - CC BY 3.0 AT)
 
@@ -22,15 +24,22 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 	- ```eustop```
 	- ```fpoe``` FPÖ
 	- ```gruene``` Grüne
+	- ```gvp```
 	- ```kpoe``` KPÖ
+	- ```lif```
 	- ```m```
 	- ```neos``` Neos
+	- ```oeabp```
 	- ```oevp``` ÖVP
+	- ```rwa```
 	- ```spoe``` SPÖ
 	- ```stronach``` Team Stronach
+	- ```salz```
 	- ```slp```
 	- ```wandl```
+	- ```weg```
 	- ```wir```
+	- ```zpa```
 
 **Beispiel**
 
