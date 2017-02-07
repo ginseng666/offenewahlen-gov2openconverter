@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf8">
+
+<style>
+body
+{
+margin: 0;
+padding: 0;
+font-size: 16px;
+font-family: Arial;
+}
+
+#container
+{
+width: 95%;
+margin: 10px auto 0 auto;
+}
+
+#general_data
+{
+margin-top: 10px;
+line-height: 2em;
+}
+
+</style>
+
+<title>Viewer Ergebnisdaten offenewahlen.at</title>
+</head>
+<body>
+<div id="container">
+<div id="selector">
+<select id="election" onchange="load_data(this.value)">
+<option value="nrw_2013_1" selected>Nationalratswahl 2013</option>
+<option value="euw_2014_1">EU-Wahl 2014</option>
+<option value="grw_graz_2003_1">Gemeinderatswahl Graz 2003</option>
+<option value="grw_graz_2008_1">Gemeinderatswahl Graz 2008</option>
+<option value="grw_graz_2012_1">Gemeinderatswahl Graz 2012</option>
+</select>
+<select id="units" onchange="show(this.value)"></select></div>
+<div id="general_data">
+<div id="eligible">&nbsp;</div>
+<div id="turnout">&nbsp;</div>
+<div id="invalid">&nbsp;</div>
+</div>
+<div id="chart"></div>
+</div>
+<script src="d3.min.js"></script>
+<script>
+var fixed_fields = ["spatial_id", "votes", "valid", "invalid"];  //missing: eligible voters
+//var scv = d3.dsv(";", "text/plain");
+var meta;
+var parties = [];
+var result;
+var margin = 30;
+var width = document.getElementById('container').offsetWidth - margin * 2;
+var height = window.innerHeight - margin * 4 - document.getElementById('selector').offsetHeight - document.getElementById('general_data').offsetHeight;  //to compensate for the select-field
+if (height > 400) height = 400;
+if (height < 100) height = 100;
+var xscale = d3.scaleBand().rangeRound([margin, width - margin]).paddingInner(0.2);
+var yscale = d3.scaleLinear().domain([0, 1]).range([height, 0]);
+
+var svg = d3.select("#chart")
+	.append("svg")
+	.attr("width", width + margin * 2)
+	.attr("height", height + margin * 2)
+	.attr("id", "svg")
+	.append("g")
+	.attr("transform", "translate(" + margin + ", " + margin + ")");
+
+
+d3.json("parties.json", function(error, data)
+	{
+	if (!error) 
+		{
+		meta = data; 
+		load_data(document.getElementById('election').value);
+		}
+	else
+		{
+		console.log(error);
+		}
+	});
+
+
+function load_data(id)
+{
+clear();
+d3.text("data/" + id + ".csv", function(error, data)
+	{
+	if (!error) 
+		{
+		var scv = d3.dsvFormat(";");
+		data = scv.parse(data);
+		parties.length = 0;
+		result = "";
+		var options = '<option value="clear">Select what to show</option>';
+		for (var i = 0, len = data.length; i < len; i++)
+			{
+			var v = data[i].spatial_id;
+			options += '<option value="$' + v + '">' + v + '</option>';
+			for (var p in data[i])
+				{
+				if (i == 0)
+					{
+					if (fixed_fields.indexOf(p) == -1) parties.push(p);
+					}
+				if (p != "spatial_id")
+					{
+					if (isNaN(data[i][p])) data[i][p] = 0;
+					data[i][p] = +data[i][p];
+					}
+				}
+			}
+		xscale.domain(parties)
+		document.getElementById('units').innerHTML = options;
+		result = d3.map(data, function(d) { return d.spatial_id; });
+		}
+	else
+		{
+		console.log(error);
+		}
+	});
+}
+
+function show(id)
+{
+if (id == "clear")
+	{
+	clear();
+	}
+else
+	{
+	document.getElementById('eligible').innerHTML = "Wahlberechtigte: " //+result[id].eligible;
+	document.getElementById('turnout').innerHTML = "Wahlbeteilgigung: " //+ d3.format(".2%")(result[id].votes / result[id].eligible) + " (" + result[id].votes + " Stimmen)";
+	document.getElementById('invalid').innerHTML = "ungültige Stimmen: " + d3.format(".2%")(result[id].invalid / result[id].votes) + " (" + result[id].invalid + " ungültige Stimmen)";
+	
+	var bar = svg.selectAll("rect").data(parties);
+
+	bar.transition()
+		.duration(500)
+		.attr("y", function(d) { return result[id].valid > 0 ? yscale(result[id][d] / result[id].valid) : yscale(0); })
+		.attr("height", function(d) { return result[id].valid > 0 ? height - yscale(result[id][d] / result[id].valid) : 0; });
+	
+	bar.enter()
+		.append("rect")
+		.attr("x", function(d) { return xscale(d); })
+		.attr("y", function(d) { return result[id].valid > 0 ? yscale(result[id][d] / result[id].valid) : yscale(0); })
+		.attr("width", xscale.bandwidth())
+		.attr("height", function(d) { return result[id].valid > 0 ? height - yscale(result[id][d] / result[id].valid) : 0; })
+		.style("fill", function(d) { return meta.hasOwnProperty(d) ? meta[d].color : "#d3d3d3"; });
+	
+	bar.exit().remove();
+
+	var pname = svg.selectAll(".names").data(parties);
+
+	pname.attr("x", function(d) { return xscale(d) + xscale.bandwidth() / 2; })
+		.text(function(d) { return meta.hasOwnProperty(d) ? meta[d].short : d; });
+
+	pname.enter()
+		.append("text")
+		.attr("x", function(d) { return xscale(d) + xscale.bandwidth() / 2; })
+		.attr("y", height + 10)
+		.attr("dy", "0.3em")
+		.attr("class", "names")
+		.style("text-anchor", "middle")
+		.text(function(d) { return meta.hasOwnProperty(d) ? meta[d].short : d; });
+	
+	pname.exit().remove();
+
+	var values = svg.selectAll(".values").data(parties);
+
+	values.transition()
+		.duration(500)
+		.attr("x", function(d) { return xscale(d) + xscale.bandwidth() / 2; })
+		.attr("y", function(d) { return result[id].valid > 0 ? yscale(result[id][d] / result[id].valid) - 5 : yscale(0) - 5; })
+		.text(function(d) { return result[id].valid > 0 ? d3.format(".2%")(result[id][d] / result[id].valid) : "n.a."; });
+
+	values.enter()
+		.append("text")
+		.attr("x", function(d) { return xscale(d) + xscale.bandwidth() / 2; })
+		.attr("y", function(d) { return result[id].valid > 0 ? yscale(result[id][d] / result[id].valid) - 5 : yscale(0) - 5; })
+		.attr("class", "values")
+		.style("text-anchor", "middle")
+		.text(function(d) { return result[id].valid > 0 ? d3.format(".2%")(result[id][d] / result[id].valid) : "n.a."; });
+
+	values.exit().remove();
+	}
+}
+
+
+function clear()
+{
+svg.selectAll("rect, .names, .values").remove();
+document.getElementById('eligible').innerHTML = "";
+document.getElementById('turnout').innerHTML = "";
+document.getElementById('invalid').innerHTML = "";
+}
+</script>
+</body>
+</html>
