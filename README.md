@@ -53,3 +53,8 @@ Ziel ist es, immer eine CSV Datei mit der selben Struktur zu exportieren. Die CS
 
 Unter [data/output/](data/output/) sind die konvertierten CSV-Dateien gespeichert.
 
+
+**Viewer**
+
+Unter [viewer](viewer/) findet sich ein d3-Script zum einfachen Betrachten der csv-Ergebnisdaten. Live-Version siehe [hier](http://drawingdata.net/owviewer/)
+
